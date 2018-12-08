@@ -7,16 +7,82 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+	// 5! === 5*4*3*2*1 
+	// n interger 
+	// out: number mult of numbers 
+	// basecase:
+	// recursive: factorial(n-1)
+
+	// if (n < 0){
+	// 	return null;
+	// } else if (n === 0){
+	// 	return 1;
+	// }
+
+	return (n < 0) ? null : (n === 0) ? 1 : n *factorial(n-1);
+
+	// return n * factorial(n-1);
+
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+	// input array
+	// basecase: array.length === 0 
+	// output sum
+
+	return (array.length === 0) ? 0 : array[0] + sum(array.slice(1));
+
+	// array[0] +   array.slice(1) // [2,3,4,5,6] copy 
+	// 					array.slice(1) //[3, 4, 5, 6]
+
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(array) {
+	//input: numbers
+	// if (array.length === 0) {//base case 
+	// 	return 0;
+	// }
+
+	// // array.flat(); //flattens once 
+	// return (array[0]) + arraySum(array - 1)
+
+	// sum(array.slice(1)); //recursive adding 
+
+	var sum = 0; 
+	// for( var i = 0; i < array.length; i++){
+	// 	if (Array.isArray(array[i])){ // could be number , could be another array 
+	// 		array.flat()  // [1, 2, 3, [4],]
+	// 	}
+	// }
+
+	// array = [1,[2,3],[[4]],5] 
+
+	// 		[0, 1 , 2,    3 ]
+	// var someArr = ['hey']
+
+	if (array.length === 0){
+ 		return 0;
+	}
+	//sum storage
+	//iterate throiugh the array 
+	for (var i = 0; i < array.length; i++){
+		var current = array[i];
+			 //check if item at the index is number and grab that number and add to sum
+    	if (typeof(current) === 'number'){ // check for number
+    		sum = sum + current; // sum = 0 + 1 
+    	} 
+
+    	if (Array.isArray(current)){ //check if item at index is an ArrayIsArray
+    		sum = sum + arraySum(current); //recursive call - arraySum(array)
+    	}
+
+	 return sum + arraySum(current); 
+	}
+
 };
 
 // 4. Check if a number is even.
