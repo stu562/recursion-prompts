@@ -104,24 +104,31 @@ var sumBelow = function(n) {
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
 
-  if (x > y){ //switches around the variable 
+  if (x > y){ //if the starting is greater, switch the variables around 
     	z = y; //z = 2
     	y = x; //y = 7
     	x = z;
+
+    var list = range(x, y - 1); // y is decrementing
+    list.push(y-1); // exclusive 
+    return list.reverse();
+
+
   }
 
-  if (y - x === 1 || y - x === 0){
+  if (y - x === 1 || y - x === 0){//for cases of too small of range 
     return []
-  } else if (y - x === 2) { //why?
-    return [(x + 1)];//array ? 
+  } else if (y - x === 2) { // create the range for 2 gap
+    return [(x + 1)];//array will be equal to 
   } else {
   
     var list = range(x, y - 1); // y is decrementing
-
     list.push(y-1); // exclusive 
     return list;
+
   }
 };
+
 
 // 7. Compute the exponent of a number.
 // The exponent of a number says how many times the base number is used as a factor.
@@ -155,24 +162,70 @@ var exponent = function(base, exp) {
 
 
 
-
-
-
-
-
 // 8. Determine if a number is a power of two.
 // powerOfTwo(1); // true
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+
+	if (n === 1){//base case 
+     return true;
+   } else if (n < 1){//base case
+     return false;
+   } else {
+     return powerOfTwo(n/2)//continiuos div by two, until 1 or less is reached
+   }
+
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function(string) {
+	//need empty string
+	//can't use reverse() 
+	//backwards 
+	//hello =>  olleh
+	if (string === ""){//empty case 
+    	return "";
+ 	}else{
+    	return reverse(string.slice(1,string.length)) + string.slice(0,1);
+    }
+   	// make new array
+   	// unshift into array
+   	// join 
+   			// hello -> elloh
+   			// elloh -> llohe
+	//slice the string 
+	//charat give that specific index char 
+
+	// reverse(string) // recursvie 
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function(string) {
+	//input string
+	//output true or false
+	//words that spelled backwards === forwards 
+	//lower case and spaces are ignored, should still work 
+   string = string.toLowerCase(); //ignore casing  
+
+   if (string === ""){// base case, for when recursion occurs , and the call stack string === '', this will stop 
+    	return "";
+   }
+
+  if(string.length === 1){//all 1 letter words are palindromes like 'a'
+    return true;
+  }else if(string[0] !== string[string.length-1]){
+  //check first and last char to match, if they don't match return false 
+    return false;
+  }
+
+  // racecar 
+  //  aceca
+  //   cec
+  //    e
+  
+return palindrome(string.slice(1,-1));//repeat for all but the first and the last 
+	
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
